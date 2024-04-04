@@ -55,6 +55,7 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> loginGo(Model model, @RequestParam Map<String, Object> paramMap,
 			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		System.out.println(paramMap);
 
 		Map<String, Object> resMap = new HashMap<String, Object>();
 		

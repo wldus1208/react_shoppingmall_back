@@ -1,13 +1,13 @@
 package kr.happyjob.study.controller.product;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,42 +23,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
+@RequestMapping("/product/")
 public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
-
-	@PostMapping("/listall.do")
+	
+	@RequestMapping("list")
 	@ResponseBody
-	public Map<String, Object> productSelect(Model model, @RequestParam Map<String, Object> paramMap,
+	public Map<String, Object> productSelect(Model model, @RequestParam Map<String, Object> paramMap, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		Map<String, Object> resMap = new HashMap<String, Object>();
 		
-		try {
-			ProductVO productVO = productService.productSelect(paramMap);
-			
-			if(productVO != null) {
-				
-				resMap.put("detailId", productVO.getDetailId());
-				resMap.put("categoryId", productVO.getCategoryId());
-				resMap.put("productId", productVO.getProductId());
-				resMap.put("brand", productVO.getBrand());
-				resMap.put("detailName", productVO.getDetailName());
-				resMap.put("price", productVO.getPrice());
-				resMap.put("discountPer", productVO.getDiscountPer());
-				resMap.put("img", productVO.getImg());
-				resMap.put("count", productVO.getCount());
-				resMap.put("result", "SUCCESS");
-			} else {
-				resMap.put("result", "FAIL");
-			}
-			
-		}catch (Exception e) {
-			e.printStackTrace();
+		List<ProductVO> list = productService.productSelect(paramMap);		
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("product", list); // success 용어 담기 
+	    
+	    return resultMap;
+	}	
+	
+	@PostMapping("detail")
+	@ResponseBody
+	public Map<String,Object> productDetail(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("paramMap" + paramMap);
+		String result="";
+		
+		// 선택된 게시판 1건 조회 
+		ProductVO productDetail = productService.productDetail(paramMap);
+		
+		if(productDetail != null) {
+			result = "SUCCESS";  // 성공시 찍습니다. 
+		}else {
+			result = "FAIL";  // null이면 실패입니다.
 		}
-		System.out.println(resMap);
-		return resMap;
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("resultMsg", result); // success 용어 담기 
+		resultMap.put("result", productDetail); // 리턴 값 해쉬에 담기 
+		System.out.println("productDetail" + productDetail);
+	    
+	    return resultMap;
 	}
 
 }

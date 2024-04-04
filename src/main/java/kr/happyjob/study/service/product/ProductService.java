@@ -1,5 +1,6 @@
 package kr.happyjob.study.service.product;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,14 @@ public class ProductService {
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	public List<ProductVO> productSelect(Map<String, Object> paramMap){
+        return productDAO.productSelect(paramMap);
+    }
+	
+	public ProductVO productDetail(Map<String, Object> paramMap) throws Exception {
 
-	public ProductVO productSelect(Map<String, Object> paramMap) {
-		return productDAO.productSelect(paramMap);
+		return productDAO.productDetail(paramMap);
 	}
 
 }
