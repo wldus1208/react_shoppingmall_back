@@ -29,38 +29,32 @@ public class CartController {
 	@Autowired
 	private CartService cartService;
 	
-	@RequestMapping("save")
+	// 등록 
+	@RequestMapping("insert")
 	@ResponseBody
-	public Map<String, Object> cartSave(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	public Map<String, Object> cartInsert(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 	    
-	    String action = (String)paramMap.get("action");
 	    String resultMsg = "";
 	    
 	    // 사용자 정보 설정
 	    paramMap.put("loginId", session.getAttribute("loginId"));
-
-	    if ("I".equals(action)) {
-	        // 신규 저장
-	    	System.out.println(paramMap);
-
-			try {
-				cartService.cartInsert(paramMap);
-				resultMsg = "SUCCESS";
-			} catch (Exception e) {
-				e.printStackTrace();
-				resultMsg = "FAILE";
-			}	
-	    } else if("U".equals(action)) {
-	    	try {
-//				cartService.cartInsert(paramMap);
-				resultMsg = "SUCCESS";
-			} catch (Exception e) {
-				e.printStackTrace();
-				resultMsg = "FAILE";
-			}	
-	    } else {
-	        resultMsg = "FALSE";
-	    }
+	    
+	    String detailId = (String) paramMap.get("detailId");
+	    Map<String, Object> CheckMap = new HashMap<>();
+	    CheckMap.put("loginId", session.getAttribute("loginId"));
+	    CheckMap.put("detailId", detailId);
+	    boolean isDuplicate = cartService.isDuplicate(CheckMap);
+	    System.out.println(isDuplicate);
+	    System.out.println(detailId);
+	    
+	    if(isDuplicate) {
+            resultMsg = "DUP";
+        } else if(!isDuplicate){
+        	cartService.cartInsert(paramMap);
+            resultMsg = "SUCCESS";
+        } else {
+        	resultMsg = "FAILED";
+        }
 	    
 	    //결과 값 전송
 	    Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -69,6 +63,7 @@ public class CartController {
 	    return resultMap;
 	}
 	
+	// 조회 
 	@RequestMapping("list")
 	@ResponseBody
 	public Map<String, Object> cartSelect(Model model, @RequestParam Map<String, Object> paramMap, 
@@ -81,5 +76,51 @@ public class CartController {
 	    
 	    return resultMap;
 	}	
+	
+	// 수정
+	@RequestMapping("update")
+	@ResponseBody
+	public Map<String, Object> cartUpdate(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+	    	    
+	    String resultMsg = "";
+	    
+	    // 사용자 정보 설정
+	    paramMap.put("loginId", session.getAttribute("loginId"));
+	    
+	    try {
+	    	cartService.cartUpdate(paramMap);
+
+	    	resultMsg = "UPDATED";
+	    	System.out.println(paramMap);
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMsg = "FAIL";
+		}	
+	    
+	    //결과 값 전송
+	    Map<String, Object> resultMap = new HashMap<String, Object>();
+	    resultMap.put("resultMsg", resultMsg);
+	    
+	    return resultMap;
+	}
+	
+	// 삭제
+	@RequestMapping("delete")
+	@ResponseBody
+	public Map<String, Object> cartDelete(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+			HttpServletResponse response, HttpSession session) throws Exception {
+
+		String result = "SUCCESS";
+		String resultMsg = "삭제 되었습니다.";
+		
+		cartService.cartDelete(paramMap);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("result", result);
+		resultMap.put("resultMsg", resultMsg);
+		
+		return resultMap;
+	}
+	
 
 }

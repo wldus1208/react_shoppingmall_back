@@ -27,5 +27,28 @@
 					,	#{amount}
 				)
 	</insert>
+	
+	<select id="isDuplicate" resultType="int" parameterType="java.util.Map">
+	    SELECT COUNT(*)
+	    FROM tb_cart
+	    WHERE loginid = #{loginId}
+	    AND detailId = #{detailId}
+	</select>
+	
+	<!-- 수정-->
+	<update id = "cartUpdate" parameterType="java.util.Map">
+		UPDATE tb_cart
+		SET		amount = #{amount}
+		WHERE	detailId = #{detailId}
+		AND loginid = #{loginId}
+	</update>
+	
+	<!-- 삭제-->
+	<delete id="cartDelete" parameterType="java.util.Map">
+		DELETE
+		FROM 	tb_cart
+		WHERE 	detailId = #{detailId}
+		AND loginid = #{loginId}
+	</delete>
      
 </mapper>

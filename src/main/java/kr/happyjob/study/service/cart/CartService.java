@@ -21,7 +21,27 @@ public class CartService {
 	}
 	
 	public List<CartVO> cartSelect(Map<String, Object> paramMap){
+		
         return cartDAO.cartSelect(paramMap);
     }
+	
+	public boolean isDuplicate(Map<String, Object> paramMap) {
+		
+	    int count = cartDAO.isDuplicate(paramMap);
+	    if(count > 0) {
+	    	return true;
+	    }
+	    return false;
+	}
+	
+	public int cartUpdate(Map<String, Object> paramMap) throws Exception {
+
+		return cartDAO.cartUpdate(paramMap);
+	}
+	
+	public int cartDelete(Map<String, Object> paramMap) throws Exception {
+
+		return cartDAO.cartDelete(paramMap);
+	}
 
 }
