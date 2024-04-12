@@ -47,7 +47,10 @@
 	<delete id="cartDelete" parameterType="java.util.Map">
 		DELETE
 		FROM 	tb_cart
-		WHERE 	detailId = #{detailId}
+		WHERE 	detailId IN 
+		<foreach item="detailId" collection="detailIdArray" open="(" separator="," close=")">
+        	#{detailId}
+    	</foreach>
 		AND loginid = #{loginId}
 	</delete>
      

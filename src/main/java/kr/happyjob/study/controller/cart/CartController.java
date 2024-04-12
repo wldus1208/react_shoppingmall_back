@@ -109,9 +109,15 @@ public class CartController {
 	@ResponseBody
 	public Map<String, Object> cartDelete(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
+		
+		System.out.println(paramMap);
 
 		String result = "SUCCESS";
 		String resultMsg = "삭제 되었습니다.";
+		
+		String detailIdStr = (String) paramMap.get("detailId");
+		String[] detailIdArray = detailIdStr.split(",");
+		paramMap.put("detailIdArray", detailIdArray);
 		
 		cartService.cartDelete(paramMap);
 		
