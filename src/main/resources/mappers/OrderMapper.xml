@@ -13,30 +13,39 @@
    </select>
    
    <!-- 신규등록(저장) :  -->
-	<insert id = "orderInsert" parameterType="java.util.Map">
+	<insert id="orderInsert" parameterType="java.util.Map">
 	    <selectKey resultType="string" keyProperty="orderId" order="BEFORE">
-            SELECT max(CAST(orderId  as unsigned)) + 1 
-   			FROM tb_order
-        </selectKey> 
-		INSERT INTO tb_order
-		(orderId, cartId, loginid, paymentDt, paymentMethod, creaditInfo, amount, status, phone, address, addDetail, zip, location, totPayment)
-		VALUES
-			(#{orderId}, 
-			 #{cartId}, 
-			 #{loginId}, 
-			 NOW(), 
-			 #{paymentMethod}, 
-			 #{creaditInfo}, 
-			 #{amount}, 
-			 #{status}, 
-			 #{phone}, 
-			 #{address}, 
-			 #{addDetail}, 
-			 #{zip}, 
-			 #{location}, 
-			 #{totPayment}
-			);
+	        SELECT max(CAST(orderId AS unsigned)) + 1 
+	        FROM tb_order
+	    </selectKey> 
+	    INSERT INTO tb_order
+	    (orderId, detailId, loginid, amount, paymentDt, paymentMethod, creaditInfo, status, phone, address, addDetail, zip, location, totPayment)
+	    VALUES
+	    (#{orderId}, 
+	     #{detailId},
+	     #{loginId}, 
+	     #{amount},
+	     NOW(), 
+	     #{paymentMethod}, 
+	     #{creaditInfo},  
+	     #{status}, 
+	     #{phone}, 
+	     #{address}, 
+	     #{addDetail}, 
+	     #{zip}, 
+	     #{location}, 
+	     #{totPayment}
+	    )
+
 	</insert>
+	
+	<insert id="orderpInsert" parameterType="java.util.Map">	    
+	    INSERT INTO tb_order_product
+	    (orderId, detailId, amount)
+	    VALUES
+	    (#{orderId}, #{detailId}, #{amount})
+	</insert>
+
 	
 	<!-- 수정-->
 	<update id = "orderUpdate" parameterType="java.util.Map">

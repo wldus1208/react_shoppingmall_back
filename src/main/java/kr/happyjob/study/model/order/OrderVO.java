@@ -1,14 +1,15 @@
 package kr.happyjob.study.model.order;
 
+import java.util.List;
+
 public class OrderVO {
 
-	private int orderId;
-	private int cartId;
+	private String orderId;
 	private String loginid;
 	private String paymentDt;
 	private String paymentMethod;
 	private String creaditInfo;
-	private int amount;
+	private String amount;
 	private String status;
 	private String phone;
 	private String address;
@@ -16,19 +17,21 @@ public class OrderVO {
 	private String zip;
 	private String location;
 	private int totPayment;
+	private String detailId;
 	
-	public int getOrderId() {
+	public String getDetailId() {
+		return detailId;
+	}
+	public void setDetailId(String detailId) {
+		this.detailId = detailId;
+	}
+	public String getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(int orderId) {
+	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
-	public int getCartId() {
-		return cartId;
-	}
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
-	}
+
 	public String getLoginid() {
 		return loginid;
 	}
@@ -53,10 +56,10 @@ public class OrderVO {
 	public void setCreaditInfo(String creaditInfo) {
 		this.creaditInfo = creaditInfo;
 	}
-	public int getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(int amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 	public String getStatus() {
@@ -101,4 +104,5 @@ public class OrderVO {
 	public void setTotPayment(int totPayment) {
 		this.totPayment = totPayment;
 	}
+	
 }

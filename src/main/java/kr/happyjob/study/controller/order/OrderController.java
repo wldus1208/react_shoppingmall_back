@@ -33,16 +33,19 @@ public class OrderController {
 	@RequestMapping("insert")
 	@ResponseBody
 	public Map<String, Object> orderInsert(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
-	    
+		
 	    String resultMsg = "";
 	    
 	    // 사용자 정보 설정
 	    paramMap.put("loginId", session.getAttribute("loginId"));
 	    
 	    try {
+	    	System.out.println(paramMap);
 			orderService.orderInsert(paramMap);
+	        
             resultMsg = "SUCCESS";
         } catch (Exception e) {
+        	e.printStackTrace();
         	resultMsg = "FAILED";
         } 	
 	    
