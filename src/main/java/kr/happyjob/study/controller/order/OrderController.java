@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.happyjob.study.model.cart.CartVO;
+import kr.happyjob.study.model.order.OrderVO;
 import kr.happyjob.study.service.order.OrderService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -127,6 +128,25 @@ public class OrderController {
 		
 		return resultMap;
 	}
+	
+	// 주문내역
+	@RequestMapping("orderlist")
+	@ResponseBody
+	public Map<String, Object> orderList(Model model, @RequestParam Map<String, Object> paramMap, 
+			HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
+		System.out.println(paramMap);
+		
+		String loginId = (String) paramMap.get("loginId");
+		paramMap.put("loginId", loginId);
+		
+		List<OrderVO> list = orderService.orderList(paramMap);	
+		System.out.println(list);
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("orderlist", list); // success 용어 담기 
+	    
+	    return resultMap;
+	}	
 	
 
 }

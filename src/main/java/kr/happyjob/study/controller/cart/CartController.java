@@ -68,6 +68,8 @@ public class CartController {
 	@ResponseBody
 	public Map<String, Object> cartSelect(Model model, @RequestParam Map<String, Object> paramMap, 
 			HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String loginId = (String) paramMap.get("loginId");
+		paramMap.put("loginId", loginId);
 		
 		List<CartVO> list = cartService.cartSelect(paramMap);		
 		

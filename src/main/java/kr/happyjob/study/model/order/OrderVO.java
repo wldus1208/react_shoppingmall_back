@@ -19,6 +19,28 @@ public class OrderVO {
 	private int totPayment;
 	private String detailId;
 	
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	public String getDetailName() {
+		return detailName;
+	}
+	public void setDetailName(String detailName) {
+		this.detailName = detailName;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	private String brand;
+	private String detailName;
+	private String img;
+	
 	public String getDetailId() {
 		return detailId;
 	}

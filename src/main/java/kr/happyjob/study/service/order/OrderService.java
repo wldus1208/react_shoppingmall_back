@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.happyjob.study.model.cart.CartVO;
+import kr.happyjob.study.model.order.OrderVO;
 import kr.happyjob.study.repository.order.OrderDAO;
 
 @Service
@@ -34,5 +35,10 @@ public class OrderService {
 
 		return orderDAO.orderDelete(paramMap);
 	}
+	
+public List<OrderVO> orderList(Map<String, Object> paramMap){
+		
+        return orderDAO.orderList(paramMap);
+    }
 
 }

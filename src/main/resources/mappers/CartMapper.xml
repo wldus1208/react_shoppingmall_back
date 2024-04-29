@@ -4,8 +4,9 @@
    
    <select id="cartSelect" resultType="kr.happyjob.study.model.cart.CartVO">
       	SELECT a.cartId, a.detailId, a.loginid, a.amount, b.brand, b.detailName, b.price, b.discountPer, b.img
-		FROM tb_cart a
-		JOIN tb_productdetail b ON a.detailId = b.detailId;
+		FROM tb_cart a, tb_productdetail b
+		WHERE a.detailId = b.detailId
+		AND loginid = #{loginId}
    </select> 
    
    <!-- 신규등록(저장) :  -->
