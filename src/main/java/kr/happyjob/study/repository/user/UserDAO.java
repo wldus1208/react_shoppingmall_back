@@ -14,5 +14,7 @@ public interface UserDAO {
 
 	// 로그인 xxxaaaa
 	public UserVO loginGo(Map<String, Object> paramMap);
+	
+	public UserVO info(Map<String, Object> paramMap);
 
 }

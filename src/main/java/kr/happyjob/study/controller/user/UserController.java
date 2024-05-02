@@ -86,6 +86,29 @@ public class UserController {
 		return resMap;
 	}
 	
+	@PostMapping("info")
+	@ResponseBody
+	public Map<String,Object> info(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("paramMap" + paramMap);
+		String result="";
+		
+		// 선택된 게시판 1건 조회 
+		UserVO userVO = userService.info(paramMap);
+		
+		if(userVO != null) {
+			result = "SUCCESS";  
+		}else {
+			result = "FAIL"; 
+		}
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("resultMsg", result); 
+		resultMap.put("result", userVO); 
+		System.out.println("userVO" + userVO);
+	    
+	    return resultMap;
+	}
+	
 	// 로그아웃
 //	@RequestMapping(value = "/logout.do")
 //	public ModelAndView loginOut(HttpServletRequest request, HttpServletResponse response, HttpSession session) {

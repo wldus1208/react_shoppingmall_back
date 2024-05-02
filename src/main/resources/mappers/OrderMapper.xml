@@ -9,7 +9,8 @@
 		<foreach item="detailId" collection="detailIdArray" open="(" separator="," close=")">
         	#{detailId}
     	</foreach>
-		AND a.detailId = b.detailId;
+		AND a.detailId = b.detailId
+		AND a.loginid = #{loginId}
    </select>
    
    <!-- 신규등록(저장) :  -->
@@ -19,7 +20,7 @@
 	        FROM tb_order
 	    </selectKey> 
 	    INSERT INTO tb_order
-	    (orderId, detailId, loginid, amount, paymentDt, paymentMethod, creaditInfo, status, phone, address, addDetail, zip, location, totPayment)
+	    (orderId, detailId, loginid, amount, paymentDt, paymentMethod, creaditInfo, status, phone, address, addDetail, zip, location, totPayment, rewords)
 	    VALUES
 	    (#{orderId}, 
 	     #{detailId},
@@ -34,7 +35,8 @@
 	     #{addDetail}, 
 	     #{zip}, 
 	     #{location}, 
-	     #{totPayment}
+	     #{totPayment},
+	     #{rewords}
 	    )
 
 	</insert>
@@ -73,7 +75,7 @@
 	</delete> 
 	
 	<select id="orderList" resultType="kr.happyjob.study.model.order.OrderVO">
-      SELECT a.orderId, a.detailID, a.loginid, a.totPayment, a.status, a.paymentDt, b.brand, b.detailName, b.img
+      SELECT a.orderId, a.detailID, a.loginid, a.totPayment, a.status, a.paymentDt, b.brand, b.detailName, b.img, a.rewords 
 	  FROM tb_order a, tb_productdetail b
 	  WHERE a.loginid = #{loginId}
 	  AND a.detailId = b.detailId

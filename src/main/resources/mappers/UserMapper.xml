@@ -30,5 +30,12 @@
          AND loginid = #{loginId}
          AND loginpw = #{loginPw}
    </select>
+   
+   <select id = "info" parameterType="java.util.Map" resultType="kr.happyjob.study.model.user.UserVO">
+		SELECT *
+		FROM tb_userinfo
+		WHERE loginid = #{loginId}
+	</select>
+  
      
 </mapper>

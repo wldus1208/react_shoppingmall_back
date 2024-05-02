@@ -18,6 +18,7 @@ public class OrderVO {
 	private String location;
 	private int totPayment;
 	private String detailId;
+	private int rewords;
 	
 	public String getBrand() {
 		return brand;
@@ -125,6 +126,12 @@ public class OrderVO {
 	}
 	public void setTotPayment(int totPayment) {
 		this.totPayment = totPayment;
+	}
+	public int getRewords() {
+		return rewords;
+	}
+	public void setRewords(int rewords) {
+		this.rewords = rewords;
 	}
 	
 }

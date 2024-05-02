@@ -8,6 +8,13 @@ public class UserVO {
 	private String loginpw;
 	private String email;
 	
+	private String grade;
+	private String img;
+	private String birth;
+	private String phone;
+	private String address;
+	private String addDetail;
+	private String zip;
 	
 	
 	public UserVO(String loginid, String name, String loginpw, String email) {
@@ -19,6 +26,76 @@ public class UserVO {
 	}
 	
 	
+	public String getGrade() {
+		return grade;
+	}
+
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+
+	public String getImg() {
+		return img;
+	}
+
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+
+	public String getBirth() {
+		return birth;
+	}
+
+
+	public void setBirth(String birth) {
+		this.birth = birth;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getAddDetail() {
+		return addDetail;
+	}
+
+
+	public void setAddDetail(String addDetail) {
+		this.addDetail = addDetail;
+	}
+
+
+	public String getZip() {
+		return zip;
+	}
+
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
+
 	public String getLoginid() {
 		return loginid;
 	}

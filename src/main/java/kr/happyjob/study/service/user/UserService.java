@@ -25,5 +25,10 @@ public class UserService {
 	public UserVO loginGo(Map<String, Object> paramMap) {
 		return userDAO.loginGo(paramMap);
 	}
+	
+	public UserVO info(Map<String, Object> paramMap) throws Exception {
+
+		return userDAO.info(paramMap);
+	}
 
 }
